@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Completo UnlockPanel</title>
+<style>
+  body { font-family: Arial, sans-serif; line-height: 1.6; background: #f5f5f5; color: #333; padding: 0; margin: 0; }
+  .container { max-width: 900px; margin: auto; padding: 20px; background: #fff; }
+  h1, h2, h3 { color: #2c3e50; }
+  h1 { text-align: center; margin-bottom: 20px; }
+  h2 { margin-top: 30px; }
+  h3 { margin-top: 20px; }
+  p { margin: 10px 0; }
+  pre { background: #eee; padding: 10px; overflow-x: auto; }
+  code { background: #eee; padding: 2px 5px; border-radius: 3px; }
+  ul { margin: 10px 0 10px 20px; }
+  img { max-width: 100%; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
+  .page-break { page-break-before: always; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Manual Completo UnlockPanel</h1>
+  <p><strong>Versão:</strong> 1.0</p>
+  <p><strong>Objetivo:</strong> Este manual orienta sobre instalação, configuração, uso e deploy do sistema UnlockPanel, permitindo operação completa de vendas de serviços via Pix, painel usuário e admin.</p>
+
+  <h2>Índice</h2>
+  <ol>
+    <li>Pré-requisitos</li>
+    <li>Estrutura do Projeto</li>
+    <li>Configuração de Variáveis de Ambiente</li>
+    <li>Instalação de Dependências</li>
+    <li>Configuração Mercado Pago Pix</li>
+    <li>Rodar Localmente</li>
+    <li>Deploy na Nuvem</li>
+    <li>Uso do Sistema</li>
+    <li>Dicas Extras</li>
+  </ol>
+
+  <div class="page-break"></div>
+
+  <h2>1. Pré-requisitos</h2>
+  <ul>
+    <li>Node.js >= 18</li>
+    <li>MongoDB (local ou Atlas)</li>
+    <li>Conta no Mercado Pago com token de acesso</li>
+    <li>Editor de código (VSCode recomendado)</li>
+    <li>Plataformas de hospedagem: Vercel/Netlify (frontend), Render/Railway/Heroku (backend)</li>
+  </ul>
+
+  <h2>2. Estrutura do Projeto</h2>
+  <pre>
+unlockpanel/
+│
+├─ backend/                 # Node.js + Express
+│   ├─ server.js
+│   ├─ routes/
+│   ├─ models/
+│   ├─ middleware/
+│   └─ config/
+│
+├─ frontend/                # React + Tailwind
+│   ├─ src/pages/
+│   ├─ src/components/
+│   └─ src/App.jsx
+└─ package.json
+  </pre>
+
+  <h2>3. Configuração de Variáveis de Ambiente</h2>
+  <p>Crie um arquivo <code>.env</code> na pasta <code>backend</code>:</p>
+  <pre>
+MONGO_URI=seu_mongodb_uri
+JWT_SECRET=uma_chave_secreta_forte
+MP_ACCESS_TOKEN=seu_token_mercado_pago
+FRONTEND_URL=http://localhost:3000
+PORT=5000
+  </pre>
+  <p><strong>Observação:</strong> Substitua os valores pelos seus dados reais.</p>
+
+  <h2>4. Instalação de Dependências</h2>
+  <h3>Backend</h3>
+  <pre>
+cd backend
+npm install express mongoose cors bcryptjs jsonwebtoken mercadopago dotenv
+  </pre>
+  <h3>Frontend</h3>
+  <pre>
+cd frontend
+npm install react-router-dom axios recharts tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+  </pre>
+  <p>Configure Tailwind:</p>
+  <pre>
+/* tailwind.config.js */
+module.exports = {
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  theme: { extend: {} },
+  plugins: [],
+}
+
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+  </pre>
+
+  <div class="page-break"></div>
+
+  <h2>5. Configuração Mercado Pago Pix</h2>
+  <ol>
+    <li>Acesse Mercado Pago → Desenvolvedores → Webhooks</li>
+    <li>Adicione a URL do webhook do backend: <code>https://seusite.com/api/webhook/mercadopago</code></li>
+    <li>Selecione os eventos:
+      <ul>
+        <li>payment.created</li>
+        <li>payment.updated</li>
+      </ul>
+    </li>
+  </ol>
+  <p>✅ Quando o usuário pagar via Pix, o saldo é atualizado automaticamente.</p>
+
+  <h2>6. Rodar Localmente (Testes)</h2>
+  <h3>Backend</h3>
+  <pre>
+cd backend
+node server.js
+  </pre>
+  <h3>Frontend</h3>
+  <pre>
+cd frontend
+npm start
+  </pre>
+  <p>Acesse:
+    <ul>
+      <li>Frontend: <code>http://localhost:3000</code></li>
+      <li>Backend: <code>http://localhost:5000/api/...</code></li>
+    </ul>
+  </p>
+  <p>Teste funcionalidades: login, adicionar créditos, criar pedido, painel admin, gráficos.</p>
+
+  <div class="page-break"></div>
+
+  <h2>7. Deploy na Nuvem</h2>
+  <h3>Backend</h3>
+  <ul>
+    <li>Plataformas: Render / Railway / Heroku</li>
+    <li>Adicione as variáveis de ambiente na plataforma</li>
+    <li>URL pública do backend: <code>https://unlockpanel-backend.onrender.com</code></li>
+  </ul>
+
+  <h3>Frontend</h3>
+  <ul>
+    <li>Plataformas: Vercel / Netlify</li>
+    <li>Atualize Axios para usar a URL do backend</li>
+    <li>Deploy → site público</li>
+  </ul>
+
+  <h2>8. Uso do Sistema</h2>
+  <h3>Usuário</h3>
+  <ol>
+    <li>Registrar / Login</li>
+    <li>Dashboard mostra saldo e pedidos</li>
+    <li>Adicionar créditos:
+      <ul>
+        <li>Digite valor → gerar QR Code → pagar Pix</li>
+        <li>Saldo atualizado automaticamente</li>
+      </ul>
+    </li>
+    <li>Criar pedido usando créditos</li>
+    <li>Acompanhar status do pedido (Pendente, Em Progresso, Concluído, Cancelado)</li>
+  </ol>
+
+  <h3>Admin</h3>
+  <ol>
+    <li>Entrar com conta admin (<code>admin@admin.com</code>)</li>
+    <li>Painel Admin:
+      <ul>
+        <li>Usuários, pedidos e serviços</li>
+        <li>Dropdown para atualizar status do pedido</li>
+        <li>Gráficos de resumo de pedidos</li>
+      </ul>
+    </li>
+    <li>Notificações automáticas para usuários quando o status muda</li>
+  </ol>
+
+  <div class="page-break"></div>
+
+  <h2>9. Dicas Extras</h2>
+  <ul>
+    <li>Configure HTTPS/SSL para segurança</li>
+    <li>Use WebSocket ou Pusher para notificações em tempo real</li>
+    <li>Monitore logs de pedidos e pagamentos</li>
+    <li>Faça backup do MongoDB regularmente</li>
+  </ul>
+
+  <h2>10. Prints e Exemplos Visuais</h2>
+  <p>Você pode substituir os placeholders abaixo pelos prints reais do sistema:</p>
+  <ul>
+    <li><img src="placeholder-dashboard.png" alt="Dashboard Usuário"></li>
+    <li><img src="placeholder-add-credits.png" alt="Adicionar Créditos"></li>
+    <li><img src="placeholder-new-order.png" alt="Criar Pedido"></li>
+    <li><img src="placeholder-admin-dashboard.png" alt="Painel Admin"></li>
+  </ul>
+
+  <p style="text-align:center; margin-top:50px;">🔹 Fim do Manual 🔹</p>
+</div>
+</body>
+</html>
