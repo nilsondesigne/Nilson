@@ -36,6 +36,7 @@
     <li>Deploy na Nuvem</li>
     <li>Uso do Sistema</li>
     <li>Dicas Extras</li>
+    <li>Prints e Exemplos Visuais</li>
   </ol>
 
   <div class="page-break"></div>
@@ -53,14 +54,14 @@
   <pre>
 unlockpanel/
 │
-├─ backend/                 # Node.js + Express
+├─ backend/                 
 │   ├─ server.js
 │   ├─ routes/
 │   ├─ models/
 │   ├─ middleware/
 │   └─ config/
 │
-├─ frontend/                # React + Tailwind
+├─ frontend/                
 │   ├─ src/pages/
 │   ├─ src/components/
 │   └─ src/App.jsx
@@ -68,7 +69,6 @@ unlockpanel/
   </pre>
 
   <h2>3. Configuração de Variáveis de Ambiente</h2>
-  <p>Crie um arquivo <code>.env</code> na pasta <code>backend</code>:</p>
   <pre>
 MONGO_URI=seu_mongodb_uri
 JWT_SECRET=uma_chave_secreta_forte
@@ -76,7 +76,6 @@ MP_ACCESS_TOKEN=seu_token_mercado_pago
 FRONTEND_URL=http://localhost:3000
 PORT=5000
   </pre>
-  <p><strong>Observação:</strong> Substitua os valores pelos seus dados reais.</p>
 
   <h2>4. Instalação de Dependências</h2>
   <h3>Backend</h3>
@@ -90,22 +89,6 @@ cd frontend
 npm install react-router-dom axios recharts tailwindcss postcss autoprefixer
 npx tailwindcss init -p
   </pre>
-  <p>Configure Tailwind:</p>
-  <pre>
-/* tailwind.config.js */
-module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  theme: { extend: {} },
-  plugins: [],
-}
-
-/* src/index.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-  </pre>
-
-  <div class="page-break"></div>
 
   <h2>5. Configuração Mercado Pago Pix</h2>
   <ol>
@@ -118,7 +101,6 @@ module.exports = {
       </ul>
     </li>
   </ol>
-  <p>✅ Quando o usuário pagar via Pix, o saldo é atualizado automaticamente.</p>
 
   <h2>6. Rodar Localmente (Testes)</h2>
   <h3>Backend</h3>
@@ -131,27 +113,20 @@ node server.js
 cd frontend
 npm start
   </pre>
-  <p>Acesse:
-    <ul>
-      <li>Frontend: <code>http://localhost:3000</code></li>
-      <li>Backend: <code>http://localhost:5000/api/...</code></li>
-    </ul>
-  </p>
-  <p>Teste funcionalidades: login, adicionar créditos, criar pedido, painel admin, gráficos.</p>
 
   <div class="page-break"></div>
 
   <h2>7. Deploy na Nuvem</h2>
   <h3>Backend</h3>
   <ul>
-    <li>Plataformas: Render / Railway / Heroku</li>
-    <li>Adicione as variáveis de ambiente na plataforma</li>
+    <li>Render / Railway / Heroku</li>
+    <li>Adicione as variáveis de ambiente</li>
     <li>URL pública do backend: <code>https://unlockpanel-backend.onrender.com</code></li>
   </ul>
 
   <h3>Frontend</h3>
   <ul>
-    <li>Plataformas: Vercel / Netlify</li>
+    <li>Vercel / Netlify</li>
     <li>Atualize Axios para usar a URL do backend</li>
     <li>Deploy → site público</li>
   </ul>
@@ -168,7 +143,7 @@ npm start
       </ul>
     </li>
     <li>Criar pedido usando créditos</li>
-    <li>Acompanhar status do pedido (Pendente, Em Progresso, Concluído, Cancelado)</li>
+    <li>Acompanhar status do pedido</li>
   </ol>
 
   <h3>Admin</h3>
@@ -177,31 +152,33 @@ npm start
     <li>Painel Admin:
       <ul>
         <li>Usuários, pedidos e serviços</li>
-        <li>Dropdown para atualizar status do pedido</li>
+        <li>Dropdown para atualizar status</li>
         <li>Gráficos de resumo de pedidos</li>
       </ul>
     </li>
-    <li>Notificações automáticas para usuários quando o status muda</li>
+    <li>Notificações automáticas</li>
   </ol>
 
   <div class="page-break"></div>
 
   <h2>9. Dicas Extras</h2>
   <ul>
-    <li>Configure HTTPS/SSL para segurança</li>
+    <li>Configure HTTPS/SSL</li>
     <li>Use WebSocket ou Pusher para notificações em tempo real</li>
     <li>Monitore logs de pedidos e pagamentos</li>
-    <li>Faça backup do MongoDB regularmente</li>
+    <li>Backup do MongoDB regularmente</li>
   </ul>
 
   <h2>10. Prints e Exemplos Visuais</h2>
-  <p>Você pode substituir os placeholders abaixo pelos prints reais do sistema:</p>
-  <ul>
-    <li><img src="placeholder-dashboard.png" alt="Dashboard Usuário"></li>
-    <li><img src="placeholder-add-credits.png" alt="Adicionar Créditos"></li>
-    <li><img src="placeholder-new-order.png" alt="Criar Pedido"></li>
-    <li><img src="placeholder-admin-dashboard.png" alt="Painel Admin"></li>
-  </ul>
+  <p>Exemplos das telas principais:</p>
+  <h3>Dashboard Usuário</h3>
+  <img src="https://via.placeholder.com/800x400?text=Dashboard+Usu%C3%A1rio" alt="Dashboard Usuário">
+  <h3>Adicionar Créditos</h3>
+  <img src="https://via.placeholder.com/800x400?text=Adicionar+Cr%C3%A9ditos" alt="Adicionar Créditos">
+  <h3>Novo Pedido</h3>
+  <img src="https://via.placeholder.com/800x400?text=Novo+Pedido" alt="Novo Pedido">
+  <h3>Painel Admin</h3>
+  <img src="https://via.placeholder.com/800x400?text=Painel+Admin" alt="Painel Admin">
 
   <p style="text-align:center; margin-top:50px;">🔹 Fim do Manual 🔹</p>
 </div>
